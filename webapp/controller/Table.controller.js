@@ -3,8 +3,10 @@ sap.ui.define([
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/model/json/JSONModel",
+    "sap/m/MessageBox",
+	"sap/m/MessageToast",
 
-], function(Controller, Filter, FilterOperator, JSONModel){
+], function(Controller, Filter, FilterOperator, JSONModel, MessageBox, MessageToast){
     "use strict";
 
     return Controller.extend("butterflies.Table", {
@@ -139,6 +141,46 @@ sap.ui.define([
             // cancel edition
             const oStateModel = this.getView().getModel("state");
             oStateModel.setProperty("/editable", false);
+        },
+
+        onDelete: function(rowsGUID) {
+
+            const oModel = this.getView().getModel("data");
+            const aData = oModel.getProperty("/butterflies");
+
+            const aUpdatedData = aData.filter((element) => !rowsGUID.includes(element.GUID))
+
+            oModel.setProperty("/butterflies", aUpdatedData);
+
+        },
+
+        onDeleteInit: function() {
+
+            const oTable = this.byId("mainTable");
+            const aSelectedIndices = oTable.getSelectedIndices();
+
+            const rowsGUID = aSelectedIndices.map(index => {
+                const oContext = oTable.getContextByIndex(index); 
+                const selectedRow = oContext.getObject();  
+                return selectedRow.GUID;
+            });
+
+            if (aSelectedIndices.length === 0) {
+                MessageToast.show("Please select atleast one row.");
+                return;
+            }
+
+            MessageBox.confirm("Do you want to delete records?", {
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                emphasizedAction: MessageBox.Action.YES,
+                onClose: (oAction) => {
+                    if (oAction === MessageBox.Action.YES) {
+                        this.onDelete(rowsGUID);
+                        oTable.clearSelection();
+                    }
+                }
+            })
+
         },
     })
 })
