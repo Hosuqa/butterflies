@@ -10,9 +10,10 @@ sap.ui.define([
     "sap/ui/core/Item",
     "sap/m/Button",
     "sap/m/Select",
-    "sap/m/VBox"
+    "sap/m/VBox",
+    "sap/m/Text"
 
-], function(Controller, Filter, FilterOperator, JSONModel, MessageBox, MessageToast, Dialog, Label, Item, Button, Select, VBox){
+], function(Controller, Filter, FilterOperator, JSONModel, MessageBox, MessageToast, Dialog, Label, Item, Button, Select, VBox, Text){
     "use strict";
 
     return Controller.extend("butterflies.Table", {
@@ -343,6 +344,71 @@ sap.ui.define([
             });
         },
 
+        onSumValues: function() {
+            const oResourceBundle = this.getView().getModel("i18n").getResourceBundle(); 
+            const sTitle = oResourceBundle.getText("customDialogTitle");
+            const sColumn = oResourceBundle.getText("customDialogColumn");
+
+            if (!this._oDialog) {
+                this._oDialog = new Dialog({
+                    title: sTitle,
+                    content: new VBox({
+                        items: [
+                            new Label({ text: sColumn, labelFor: "selectId" }),
+                            new Select("selectId", {
+                                items: [
+                                    new Item({ text: "Name", key: "Name" }),
+                                    new Item({ text: "Family", key: "Family" }),
+                                    new Item({ text: "Location", key: "Location" }),
+                                    new Item({ text: "Date", key: "Date" }),
+                                    new Item({ text: "Wingspan", key: "Wingspan" }),
+                                    new Item({ text: "Weight", key: "Weight" }),
+                                    new Item({ text: "Price", key: "Price" }),
+                                    new Item({ text: "Abundance", key: "Abundance" }),
+                                    new Item({ text: "Color Rating", key: "Color Rating" }),
+                                    new Item({ text: "Habitat", key: "Habitat" }),
+                                    new Item({ text: "Lifespan", key: "Lifespan" }),
+                                    new Item({ text: "Migration Pattern", key: "Migration Pattern" }),
+                                    new Item({ text: "Threat Level", key: "Threat Level" })
+                                ],
+                                change: this.performSumValues.bind(this)
+                            }),
+                            new Label({ text: "Total value: " }),
+                            new Text("totalValue", { text: "0" })
+                        ],
+
+                    }),
+                    endButton: new Button({
+                        text: "Cancel",
+                        press: () => {
+                            this._oDialog.close();
+                        }
+                    }),
+                    afterClose: () => {
+                        this._oDialog.destroy();
+                        this._oDialog = null;
+                    }
+                }).addStyleClass("sapUiContentPadding");
+            }
         
+            this._oDialog.open();
+        },
+
+        performSumValues: function(oEvent) {
+            const sKey = oEvent.getParameter("selectedItem").getKey(); 
+            const oModel = this.getView().getModel("data"); 
+            const aData = oModel.getProperty("/butterflies"); 
+            let endsum = "------------";
+            if (typeof aData[0][sKey] === "number") {
+
+                 endsum = aData.reduce((acc, item) => {
+                    const value = parseFloat(item[sKey]); 
+                    return acc + (isNaN(value) ? 0 : value); 
+                    
+                }, 0);
+                endsum = parseFloat(endsum).toFixed(2);
+            }
+            sap.ui.getCore().byId("totalValue").setText(endsum.toString());
+        },
     })
 })
