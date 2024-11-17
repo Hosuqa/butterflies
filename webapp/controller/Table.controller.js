@@ -122,7 +122,6 @@ sap.ui.define([
                 }
                 return record; 
             })
-            console.log("vdata: ", vData);
             oModel.setProperty("/butterflies", vData);
 
             // clearing backup
