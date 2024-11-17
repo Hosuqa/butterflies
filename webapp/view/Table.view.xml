@@ -1,5 +1,6 @@
 <mvc:XMLView
     xmlns="sap.ui.table"
+    xmlns:rowmodes="sap.ui.table.rowmodes"
     xmlns:m="sap.m"
     controllerName="butterflies.controller.Table"
     xmlns:mvc="sap.ui.core.mvc"
@@ -23,6 +24,22 @@
                 <m:Button icon="sap-icon://duplicate" press="onDuplicate" />
                 <m:Button icon="sap-icon://sum" press="onSumValues"/>
                 <m:Button icon="sap-icon://delete" type="Emphasized" press="onDeleteInit" />
+                <m:Input
+                    id="inputColumn"
+                    width="7%"
+                    placeholder="cols"
+                    tooltip="fixed column count"/>
+                <m:Input
+                    id="inputRow"
+                    width="7%"
+                    placeholder="uprows"
+                    tooltip="fixed row count"/>
+                <m:Input
+                    id="inputBottomRow"
+                    width="7%"
+                    placeholder="downrows"
+                    tooltip="fixed bottom row count"/>
+                <m:Button text="Apply" press="onFreeze"/>
                 <m:ToolbarSpacer />
 				<m:Button text="{i18n>editValuesButton}" press="onChangeValues" />
 				<m:Button icon="sap-icon://edit" text="{i18n>editModeButton}" press="onToggleEdit" visible="{= !${state>/editable} }"/>
@@ -30,6 +47,9 @@
 				<m:Button text="{i18n>cancelButton}" type="Attention" visible="{state>/editable}" press="onCancel"/>
             </m:OverflowToolbar>
         </extension>
+        <rowMode>
+			<rowmodes:Fixed/>
+		</rowMode>
         <Column sortProperty="Name">
             <m:Label text="{i18n>nameLabel}"/>
             <template>

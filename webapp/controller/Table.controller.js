@@ -435,6 +435,54 @@ sap.ui.define([
             setTimeout(() => {
                 BusyIndicator.hide(); 
             }, 1500); 
-        }
+        },
+
+        onFreeze: function() {
+			const oView = this.getView();
+			const oTable = oView.byId("mainTable");
+			const sColumnCount = oView.byId("inputColumn").getValue() || 0;
+			const sRowCount = oView.byId("inputRow").getValue() || 0;
+			const sBottomRowCount = oView.byId("inputBottomRow").getValue() || 0;
+			let iColumnCount = parseInt(sColumnCount);
+			let iRowCount = parseInt(sRowCount);
+			let iBottomRowCount = parseInt(sBottomRowCount);
+			const iTotalColumnCount = oTable.getColumns().length;
+			const iTotalRowCount = oTable.getRows().length;
+
+			// Fixed column count exceeds the total column count
+			if (iColumnCount > iTotalColumnCount) {
+				iColumnCount = iTotalColumnCount;
+				oView.byId("inputColumn").setValue(iTotalColumnCount);
+				MessageToast.show("Fixed column count exceeds the total column count. Value in column count input got updated.");
+			}
+
+			// Sum of fixed row count and bottom row count exceeds the total row count
+			if (iRowCount + iBottomRowCount > iTotalRowCount) {
+
+				if ((iRowCount < iTotalRowCount) && (iBottomRowCount < iTotalRowCount)) {
+					// both row count and bottom count smaller than total row count
+					iBottomRowCount = 1;
+				} else if ((iRowCount > iTotalRowCount) && (iBottomRowCount < iTotalRowCount)) {
+					// row count exceeds total row count
+					iRowCount = iTotalRowCount - iBottomRowCount - 1;
+				} else if ((iRowCount < iTotalRowCount) && (iBottomRowCount > iTotalRowCount)) {
+					// bottom row count exceeds total row count
+					iBottomRowCount = iTotalRowCount - iRowCount - 1;
+				} else {
+					// both row count and bottom count exceed total row count
+					iRowCount = 1;
+					iBottomRowCount = 1;
+				}
+
+				// update inputs
+				oView.byId("inputRow").setValue(iRowCount);
+				oView.byId("inputBottomRow").setValue(iBottomRowCount);
+				MessageToast.show("Sum of fixed row count and bottom row count exceeds the total row count. Input values got updated.");
+			}
+            console.log("iColumnCount: ", iColumnCount, "iRowCount: ", iRowCount, "iBottomRowCount: ", iBottomRowCount);
+			oTable.setFixedColumnCount(iColumnCount);
+			oTable.getRowMode().setFixedTopRowCount(iRowCount);
+			oTable.getRowMode().setFixedBottomRowCount(iBottomRowCount);
+		},
     })
 })
