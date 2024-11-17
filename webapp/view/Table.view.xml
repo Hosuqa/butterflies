@@ -30,7 +30,7 @@
 				<m:Button text="{i18n>cancelButton}" type="Attention" visible="{state>/editable}" press="onCancel"/>
             </m:OverflowToolbar>
         </extension>
-        <Column >
+        <Column sortProperty="Name">
             <m:Label text="{i18n>nameLabel}"/>
             <template>
                 <m:HBox>
@@ -39,7 +39,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Family">
             <m:Label text="{i18n>familyLabel}"/>
             <template>
                 <m:HBox>
@@ -48,7 +48,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Location">
             <m:Label text="{i18n>locationLabel}"/>
             <template>
                 <m:HBox>
@@ -57,7 +57,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column width="140px">
+        <Column width="140px" sortProperty="Date">
             <m:Label text="{i18n>dateLabel}"/>
             <template>
                 <m:HBox>
@@ -70,7 +70,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Wingspan">
             <m:Label text="{i18n>wingspanLabel}"/>
             <template>
                 <m:HBox>
@@ -79,7 +79,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Weight">
             <m:Label text="{i18n>weightLabel}"/>
             <template>
                 <m:HBox>
@@ -88,7 +88,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Price">
             <m:Label text="{i18n>priceLabel}"/>
             <template>
                 <m:HBox>
@@ -97,7 +97,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Abundance">
             <m:Label text="{i18n>abundanceLabel}"/>
             <template>
                 <m:HBox>
@@ -106,7 +106,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Color Rating">
             <m:Label text="{i18n>colorRatingLabel}"/>
             <template>
                 <m:HBox>
@@ -115,7 +115,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Habitat">
             <m:Label text="{i18n>habitatLabel}"/>
             <template>
                 <m:HBox>
@@ -124,7 +124,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Migration Pattern">
             <m:Label text="{i18n>lifespanLabel}"/>
             <template>
                 <m:HBox>
@@ -142,7 +142,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Threat Level">
             <m:Label text="{i18n>threatLabel}"/>
             <template>
                 <m:HBox>
