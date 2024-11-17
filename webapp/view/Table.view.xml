@@ -1,0 +1,177 @@
+<mvc:XMLView
+    xmlns="sap.ui.table"
+    xmlns:rowmodes="sap.ui.table.rowmodes"
+    xmlns:m="sap.m"
+    controllerName="butterflies.controller.Table"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Table 
+        id="mainTable"
+        rows="{/butterflies}"
+        selectionMode="MultiToggle">
+        <extension>
+            <m:OverflowToolbar style="Clear">
+                <m:Title id="title" text="{i18n>tableTitle}"/>
+                <m:ToolbarSpacer />
+                <m:SearchField width="11rem"
+                               placeholder="{i18n>searchField}"
+                               search="onFilterTable"/>
+            </m:OverflowToolbar>
+             <m:OverflowToolbar style="Clear">
+                <m:Button icon="sap-icon://add" press="onAddEmptyRow"/>
+                <m:Button icon="sap-icon://duplicate" press="onDuplicate" />
+                <m:Button icon="sap-icon://sum" press="onSumValues"/>
+                <m:Button icon="sap-icon://delete" type="Emphasized" press="onDeleteInit" />
+                <m:Input
+                    id="inputColumn"
+                    width="7%"
+                    placeholder="cols"
+                    tooltip="fixed column count"/>
+                <m:Input
+                    id="inputRow"
+                    width="7%"
+                    placeholder="uprows"
+                    tooltip="fixed row count"/>
+                <m:Input
+                    id="inputBottomRow"
+                    width="7%"
+                    placeholder="downrows"
+                    tooltip="fixed bottom row count"/>
+                <m:Button text="Apply" press="onFreeze"/>
+                <m:ToolbarSpacer />
+				<m:Button text="{i18n>editValuesButton}" press="onChangeValues" />
+				<m:Button icon="sap-icon://edit" text="{i18n>editModeButton}" press="onToggleEdit" visible="{= !${state>/editable} }"/>
+                <m:Button text="{i18n>saveButton}" type="Success" visible="{state>/editable}" press="onSave"/>
+				<m:Button text="{i18n>cancelButton}" type="Attention" visible="{state>/editable}" press="onCancel"/>
+            </m:OverflowToolbar>
+        </extension>
+        <rowMode>
+			<rowmodes:Fixed/>
+		</rowMode>
+        <Column sortProperty="Name">
+            <m:Label text="{i18n>nameLabel}"/>
+            <template>
+                <m:HBox>
+                    <m:Input value="{Name}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Name}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
+            </template>
+        </Column>
+        <Column sortProperty="Family">
+            <m:Label text="{i18n>familyLabel}"/>
+            <template>
+                <m:HBox>
+                    <m:Input value="{Family}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Family}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
+            </template>
+        </Column>
+        <Column sortProperty="Location">
+            <m:Label text="{i18n>locationLabel}"/>
+            <template>
+                <m:HBox>
+                    <m:Input value="{Location}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Location}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
+            </template>
+        </Column>
+        <Column width="140px" sortProperty="Date">
+            <m:Label text="{i18n>dateLabel}"/>
+            <template>
+                <m:HBox>
+                    <m:DatePicker value="{Date}"
+                                  displayFormat="yyyy-MM-dd"
+                                  valueFormat="yyyy-MM-dd"
+                                  editable="true"
+                                  visible="{state>/editable}"/>
+                    <m:Text text="{Date}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
+            </template>
+        </Column>
+        <Column sortProperty="Wingspan">
+            <m:Label text="{i18n>wingspanLabel}"/>
+            <template>
+                <m:HBox>
+                    <m:Input value="{Wingspan}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Wingspan}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
+            </template>
+        </Column>
+        <Column sortProperty="Weight">
+            <m:Label text="{i18n>weightLabel}"/>
+            <template>
+                <m:HBox>
+                    <m:Input value="{Weight}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Weight}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
+            </template>
+        </Column>
+        <Column sortProperty="Price">
+            <m:Label text="{i18n>priceLabel}"/>
+            <template>
+                <m:HBox>
+                    <m:Input value="{Price}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Price}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
+            </template>
+        </Column>
+        <Column sortProperty="Abundance">
+            <m:Label text="{i18n>abundanceLabel}"/>
+            <template>
+                <m:HBox>
+                    <m:Input value="{Abundance}" editable="true" visible="{state>/editable}" type="Number"/>
+                    <m:Text text="{Abundance}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
+            </template>
+        </Column>
+        <Column sortProperty="Color Rating">
+            <m:Label text="{i18n>colorRatingLabel}"/>
+            <template>
+                <m:HBox>
+                    <m:Input value="{Color Rating}" editable="true" visible="{state>/editable}" type="Number"/>
+                    <m:Text text="{Color Rating}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
+            </template>
+        </Column>
+        <Column sortProperty="Habitat">
+            <m:Label text="{i18n>habitatLabel}"/>
+            <template>
+                <m:HBox>
+                    <m:Input value="{Habitat}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Habitat}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
+            </template>
+        </Column>
+        <Column sortProperty="Migration Pattern">
+            <m:Label text="{i18n>lifespanLabel}"/>
+            <template>
+                <m:HBox>
+                    <m:Input value="{Lifespan}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Lifespan}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
+            </template>
+        </Column>
+        <Column sortProperty="Migration Pattern">
+            <m:Label text="{i18n>migrationLabel}"/>
+            <template>
+                <m:HBox>
+                    <m:Input value="{Migration Pattern}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Migration Pattern}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
+            </template>
+        </Column>
+        <Column sortProperty="Threat Level">
+            <m:Label text="{i18n>threatLabel}"/>
+            <template>
+                <m:HBox>
+                    <m:Input value="{Threat Level}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Threat Level}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
+            </template>
+        </Column>
+    </Table>
+
+
+</mvc:XMLView>

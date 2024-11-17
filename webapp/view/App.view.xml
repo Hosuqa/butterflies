@@ -3,7 +3,9 @@
 	displayBlock="true"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc">
-
+	<!-- ADDed custom background -->
+	<Shell backgroundColor="#0064d9" backgroundRepeat="true" backgroundOpacity="0.8">
 	<App id="app" />
+	</Shell>
 
 </mvc:View>
