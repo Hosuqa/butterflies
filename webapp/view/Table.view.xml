@@ -14,9 +14,6 @@
             <m:OverflowToolbar style="Clear">
                 <m:Title id="title" text="{i18n>tableTitle}"/>
                 <m:ToolbarSpacer />
-                <m:Button icon="sap-icon://sorting-ranking"
-                        tooltip="Sort alphabetically"/>
-
                 <m:SearchField width="11rem"
                                placeholder="{i18n>searchField}"
                                search="onFilterTable"/>
@@ -25,7 +22,7 @@
                 <m:Button icon="sap-icon://add" />
                 <m:Button icon="sap-icon://duplicate" />
                 <m:Button icon="sap-icon://sum"/>
-                <m:Button icon="sap-icon://delete" type="Emphasized" />
+                <m:Button icon="sap-icon://delete" type="Emphasized" press="onDeleteInit" />
                 <m:ToolbarSpacer />
 				<m:Button text="{i18n>editValuesButton}" />
 				<m:Button icon="sap-icon://edit" text="{i18n>editModeButton}" press="onToggleEdit" visible="{= !${state>/editable} }"/>
