@@ -220,5 +220,44 @@ sap.ui.define([
             // updating model on View
             oModel.setProperty("/butterflies", newDataSet);
         },
+
+        onDuplicate: function () {
+            const oTable = this.byId("mainTable"); 
+            const aSelectedIndices = oTable.getSelectedIndices(); 
+            
+            if (aSelectedIndices.length === 0) {
+                MessageToast.show("Please select at least one row.");
+                return;
+            }
+        
+            const oModel = this.getView().getModel("data"); 
+            const aData = oModel.getProperty("/butterflies"); 
+            
+            // mapping through selected rows to get their details and generate new GUID
+            const aNewRows = aSelectedIndices.map(index => {
+                const oContext = oTable.getContextByIndex(index); 
+                const selectedRow = oContext.getObject(); 
+                const aRow = { ...selectedRow }; 
+                aRow.GUID = this.generateGUID(); 
+                return aRow;
+            });
+            
+            // inserting duplicated rows into our View 
+            const aUpdatedData = [...aData, ...aNewRows];
+            oModel.setProperty("/butterflies", aUpdatedData);
+            oTable.clearSelection();
+            MessageToast.show("Duplication succeeded.");
+        },
+
+        generateGUID: function() {
+            // GUID generate function
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                const r = (Math.random() * 16) | 0; 
+                const v = c === 'x' ? r : (r & 0x3) | 0x8; 
+                return v.toString(16); 
+            });
+        },
+
+        
     })
 })

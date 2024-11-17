@@ -20,7 +20,7 @@
             </m:OverflowToolbar>
              <m:OverflowToolbar style="Clear">
                 <m:Button icon="sap-icon://add" press="onAddEmptyRow"/>
-                <m:Button icon="sap-icon://duplicate" />
+                <m:Button icon="sap-icon://duplicate" press="onDuplicate" />
                 <m:Button icon="sap-icon://sum"/>
                 <m:Button icon="sap-icon://delete" type="Emphasized" press="onDeleteInit" />
                 <m:ToolbarSpacer />
