@@ -96,6 +96,7 @@ sap.ui.define([
             const oModel = this.getView().getModel("data");
             const aData = oModel.getProperty("/butterflies");
 
+            // verifying data types
             const vData = aData.map(element => {
                 const record = {
                     "GUID": element.GUID,
@@ -148,8 +149,10 @@ sap.ui.define([
             const oModel = this.getView().getModel("data");
             const aData = oModel.getProperty("/butterflies");
 
+            // searching all elements to leave 
             const aUpdatedData = aData.filter((element) => !rowsGUID.includes(element.GUID))
 
+            // updating model with all filtred good elements 
             oModel.setProperty("/butterflies", aUpdatedData);
 
         },
@@ -157,8 +160,11 @@ sap.ui.define([
         onDeleteInit: function() {
 
             const oTable = this.byId("mainTable");
+
+            // selecting all rows checked in table
             const aSelectedIndices = oTable.getSelectedIndices();
 
+            // mapping through rows to gain GUID 
             const rowsGUID = aSelectedIndices.map(index => {
                 const oContext = oTable.getContextByIndex(index); 
                 const selectedRow = oContext.getObject();  
@@ -170,6 +176,7 @@ sap.ui.define([
                 return;
             }
 
+            // Box with confirmation
             MessageBox.confirm("Do you want to delete records?", {
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                 emphasizedAction: MessageBox.Action.YES,
@@ -181,6 +188,37 @@ sap.ui.define([
                 }
             })
 
+        },
+
+        onAddEmptyRow: function () {
+            console.log('akasad')
+            const oModel = this.getView().getModel();  
+            const aData = oModel.getProperty("/butterflies"); 
+
+            // adding newRow
+            const oNewRow = {};
+            
+            // adding properties with default values
+            oNewRow.GUID = "";
+            oNewRow.Name = "";
+            oNewRow.Family = "";
+            oNewRow.Location = "";
+            oNewRow.Date = "";
+            oNewRow.Wingspan = "";
+            oNewRow.Weight = "";
+            oNewRow.Price = "";
+            oNewRow.Abundance = 0;
+            oNewRow["Color Rating"] = 0;
+            oNewRow.Habitat = "";
+            oNewRow.Lifespan = "";
+            oNewRow["Migration Pattern"] = "";
+            oNewRow["Threat Level"] = "";
+        
+            // adding empty row to our data
+            const newDataSet = [oNewRow, ...aData]
+            
+            // updating model on View
+            oModel.setProperty("/butterflies", newDataSet);
         },
     })
 })
