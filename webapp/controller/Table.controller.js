@@ -5,8 +5,14 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
 	"sap/m/MessageToast",
+    "sap/m/Dialog",
+    "sap/m/Label",
+    "sap/ui/core/Item",
+    "sap/m/Button",
+    "sap/m/Select",
+    "sap/m/VBox"
 
-], function(Controller, Filter, FilterOperator, JSONModel, MessageBox, MessageToast){
+], function(Controller, Filter, FilterOperator, JSONModel, MessageBox, MessageToast, Dialog, Label, Item, Button, Select, VBox){
     "use strict";
 
     return Controller.extend("butterflies.Table", {
@@ -219,6 +225,86 @@ sap.ui.define([
             
             // updating model on View
             oModel.setProperty("/butterflies", newDataSet);
+        },
+
+        onChangeValues: function () {
+            const oResourceBundle = this.getView().getModel("i18n").getResourceBundle(); 
+            const sTitle = oResourceBundle.getText("customDialogTitle");
+            const sColumn = oResourceBundle.getText("customDialogColumn");
+
+            if (!this._oDialog) {
+                this._oDialog = new Dialog({
+                    title: sTitle,
+                
+                // add new PopUp Box
+                content: new VBox({
+                    items: [
+                            new Label({ text: sColumn, labelFor: "selectId" }),
+                            new Select("selectId", {
+                                items: [
+                                    new Item({ text: "Name", key: "Name" }),
+                                    new Item({ text: "Family", key: "Family" }),
+                                    new Item({ text: "Location", key: "Location" }),
+                                    new Item({ text: "Date", key: "Date" }),
+                                    new Item({ text: "Wingspan", key: "Wingspan" }),
+                                    new Item({ text: "Weight", key: "Weight" }),
+                                    new Item({ text: "Price", key: "Price" }),
+                                    new Item({ text: "Abundance", key: "Abundance" }),
+                                    new Item({ text: "Color Rating", key: "Color Rating" }),
+                                    new Item({ text: "Habitat", key: "Habitat" }),
+                                    new Item({ text: "Lifespan", key: "Lifespan" }),
+                                    new Item({ text: "Migration Pattern", key: "Migration Pattern" }),
+                                    new Item({ text: "Threat Level", key: "Threat Level" }),
+                                ]
+                            })
+                        ],
+                    }),
+                    beginButton: new Button({
+                        text: "OK",
+                        press: () => {
+                            const oSelect = sap.ui.getCore().byId("selectId"); 
+                            const sSelectedKey = oSelect.getSelectedKey(); 
+
+                            // function performing logic
+                            this.performChangeValues(sSelectedKey);
+
+                            // closing dialog
+                            this._oDialog.close();
+                        }
+                    }),
+                    endButton: new Button({
+                        text: "Cancel",
+                        press: () => {
+                            this._oDialog.close();
+                        }
+                    }),
+                    afterClose: () => {
+                        this._oDialog.destroy();
+                        this._oDialog = null;
+                    }
+                }).addStyleClass("sapUiContentPadding");
+            }
+        
+            this._oDialog.open();
+        },
+
+        performChangeValues: function (selectedValue) {
+            const oModel = this.getView().getModel("data"); 
+            const aData = oModel.getProperty("/butterflies"); 
+
+            const convertedValues = aData.map((element) => {
+                const record = element;
+
+                if (typeof element[selectedValue] === "string"){
+
+                    record[selectedValue] = element[selectedValue] + "ed";
+
+                } else {
+                    record[selectedValue] = element[selectedValue] * 3.3;
+                } 
+                return record
+            })
+            oModel.setProperty("/butterflies", convertedValues);
         },
     })
 })
