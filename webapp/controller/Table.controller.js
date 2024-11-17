@@ -11,14 +11,18 @@ sap.ui.define([
     "sap/m/Button",
     "sap/m/Select",
     "sap/m/VBox",
-    "sap/m/Text"
+    "sap/m/Text",
+    "sap/ui/core/BusyIndicator"
 
-], function(Controller, Filter, FilterOperator, JSONModel, MessageBox, MessageToast, Dialog, Label, Item, Button, Select, VBox, Text){
+], function(Controller, Filter, FilterOperator, JSONModel, MessageBox, MessageToast, Dialog, Label, Item, Button, Select, VBox, Text, BusyIndicator){
     "use strict";
 
     return Controller.extend("butterflies.Table", {
 
         onInit: function() {
+
+            // busy indicator
+            this.turnOnBusyIndicator()
 
             // database connection
             const oModel = this.getOwnerComponent().getModel("data");
@@ -123,6 +127,9 @@ sap.ui.define([
                 }
                 return record; 
             })
+            // opening busy indicator
+            this.turnOnBusyIndicator()
+
             oModel.setProperty("/butterflies", vData);
 
             // clearing backup
@@ -131,6 +138,7 @@ sap.ui.define([
             // cancel edition
             const oStateModel = this.getView().getModel("state");
             oStateModel.setProperty("/editable", false);
+            
         },
 
         onCancel: function() {
@@ -157,7 +165,8 @@ sap.ui.define([
 
             // searching all elements to leave 
             const aUpdatedData = aData.filter((element) => !rowsGUID.includes(element.GUID))
-
+            // turning on Busy Indicator
+            this.turnOnBusyIndicator()
             // updating model with all filtred good elements 
             oModel.setProperty("/butterflies", aUpdatedData);
 
@@ -188,11 +197,13 @@ sap.ui.define([
                 emphasizedAction: MessageBox.Action.YES,
                 onClose: (oAction) => {
                     if (oAction === MessageBox.Action.YES) {
+                        this.turnOnBusyIndicator()
                         this.onDelete(rowsGUID);
                         oTable.clearSelection();
                     }
                 }
             })
+            
 
         },
 
@@ -267,7 +278,8 @@ sap.ui.define([
 
                             // function performing logic
                             this.performChangeValues(sSelectedKey);
-
+                            // turning on busyIndicator
+                            this.turnOnBusyIndicator()
                             // closing dialog
                             this._oDialog.close();
                         }
@@ -327,7 +339,8 @@ sap.ui.define([
                 aRow.GUID = this.generateGUID(); 
                 return aRow;
             });
-            
+            // adding busy indicator
+            this.turnOnBusyIndicator()
             // inserting duplicated rows into our View 
             const aUpdatedData = [...aData, ...aNewRows];
             oModel.setProperty("/butterflies", aUpdatedData);
@@ -410,5 +423,13 @@ sap.ui.define([
             }
             sap.ui.getCore().byId("totalValue").setText(endsum.toString());
         },
+
+        turnOnBusyIndicator: function() {
+            BusyIndicator.show(0); 
+
+            setTimeout(() => {
+                BusyIndicator.hide(); 
+            }, 1500); 
+        }
     })
 })
