@@ -175,7 +175,9 @@ sap.ui.define([
         onDeleteInit: function() {
 
             const oTable = this.byId("mainTable");
-
+            const oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+            const sMessage = oResourceBundle.getText("selectAtLeastOneRow");
+            const sConfirm = oResourceBundle.getText("confirmDelete")
             // selecting all rows checked in table
             const aSelectedIndices = oTable.getSelectedIndices();
 
@@ -187,12 +189,12 @@ sap.ui.define([
             });
 
             if (aSelectedIndices.length === 0) {
-                MessageToast.show("Please select atleast one row.");
+                MessageToast.show(sMessage);
                 return;
             }
 
             // Box with confirmation
-            MessageBox.confirm("Do you want to delete records?", {
+            MessageBox.confirm(sConfirm, {
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                 emphasizedAction: MessageBox.Action.YES,
                 onClose: (oAction) => {
@@ -322,9 +324,12 @@ sap.ui.define([
         onDuplicate: function () {
             const oTable = this.byId("mainTable"); 
             const aSelectedIndices = oTable.getSelectedIndices(); 
+            const oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+            const sMessage = oResourceBundle.getText("selectAtLeastOneRow");
+            const sDone = oResourceBundle.getText("duplicationSucced")
             
             if (aSelectedIndices.length === 0) {
-                MessageToast.show("Please select at least one row.");
+                MessageToast.show(sMessage);
                 return;
             }
         
@@ -345,7 +350,7 @@ sap.ui.define([
             const aUpdatedData = [...aData, ...aNewRows];
             oModel.setProperty("/butterflies", aUpdatedData);
             oTable.clearSelection();
-            MessageToast.show("Duplication succeeded.");
+            MessageToast.show(sDone);
         },
 
         generateGUID: function() {
