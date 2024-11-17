@@ -18,7 +18,8 @@
                         tooltip="Sort alphabetically"/>
 
                 <m:SearchField width="11rem"
-                               placeholder="{i18n>searchField}"/>
+                               placeholder="{i18n>searchField}"
+                               search="onFilterTable"/>
             </m:OverflowToolbar>
              <m:OverflowToolbar style="Clear">
                 <m:Button icon="sap-icon://add" />
