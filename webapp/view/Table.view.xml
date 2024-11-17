@@ -1,5 +1,6 @@
 <mvc:XMLView
     xmlns="sap.ui.table"
+    xmlns:rowmodes="sap.ui.table.rowmodes"
     xmlns:m="sap.m"
     controllerName="butterflies.controller.Table"
     xmlns:mvc="sap.ui.core.mvc"
@@ -23,6 +24,22 @@
                 <m:Button icon="sap-icon://duplicate" press="onDuplicate" />
                 <m:Button icon="sap-icon://sum" press="onSumValues"/>
                 <m:Button icon="sap-icon://delete" type="Emphasized" press="onDeleteInit" />
+                <m:Input
+                    id="inputColumn"
+                    width="7%"
+                    placeholder="cols"
+                    tooltip="fixed column count"/>
+                <m:Input
+                    id="inputRow"
+                    width="7%"
+                    placeholder="uprows"
+                    tooltip="fixed row count"/>
+                <m:Input
+                    id="inputBottomRow"
+                    width="7%"
+                    placeholder="downrows"
+                    tooltip="fixed bottom row count"/>
+                <m:Button text="Apply" press="onFreeze"/>
                 <m:ToolbarSpacer />
 				<m:Button text="{i18n>editValuesButton}" press="onChangeValues" />
 				<m:Button icon="sap-icon://edit" text="{i18n>editModeButton}" press="onToggleEdit" visible="{= !${state>/editable} }"/>
@@ -30,7 +47,10 @@
 				<m:Button text="{i18n>cancelButton}" type="Attention" visible="{state>/editable}" press="onCancel"/>
             </m:OverflowToolbar>
         </extension>
-        <Column >
+        <rowMode>
+			<rowmodes:Fixed/>
+		</rowMode>
+        <Column sortProperty="Name">
             <m:Label text="{i18n>nameLabel}"/>
             <template>
                 <m:HBox>
@@ -39,7 +59,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Family">
             <m:Label text="{i18n>familyLabel}"/>
             <template>
                 <m:HBox>
@@ -48,7 +68,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Location">
             <m:Label text="{i18n>locationLabel}"/>
             <template>
                 <m:HBox>
@@ -57,7 +77,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column width="140px">
+        <Column width="140px" sortProperty="Date">
             <m:Label text="{i18n>dateLabel}"/>
             <template>
                 <m:HBox>
@@ -70,7 +90,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Wingspan">
             <m:Label text="{i18n>wingspanLabel}"/>
             <template>
                 <m:HBox>
@@ -79,7 +99,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Weight">
             <m:Label text="{i18n>weightLabel}"/>
             <template>
                 <m:HBox>
@@ -88,7 +108,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Price">
             <m:Label text="{i18n>priceLabel}"/>
             <template>
                 <m:HBox>
@@ -97,7 +117,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Abundance">
             <m:Label text="{i18n>abundanceLabel}"/>
             <template>
                 <m:HBox>
@@ -106,7 +126,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Color Rating">
             <m:Label text="{i18n>colorRatingLabel}"/>
             <template>
                 <m:HBox>
@@ -115,7 +135,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Habitat">
             <m:Label text="{i18n>habitatLabel}"/>
             <template>
                 <m:HBox>
@@ -124,7 +144,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Migration Pattern">
             <m:Label text="{i18n>lifespanLabel}"/>
             <template>
                 <m:HBox>
@@ -133,7 +153,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Migration Pattern">
             <m:Label text="{i18n>migrationLabel}"/>
             <template>
                 <m:HBox>
@@ -142,7 +162,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Threat Level">
             <m:Label text="{i18n>threatLabel}"/>
             <template>
                 <m:HBox>
