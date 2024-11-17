@@ -133,7 +133,7 @@
                 </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column sortProperty="Migration Pattern">
             <m:Label text="{i18n>migrationLabel}"/>
             <template>
                 <m:HBox>
