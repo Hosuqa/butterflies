@@ -28,85 +28,130 @@
                 <m:Button icon="sap-icon://delete" type="Emphasized" />
                 <m:ToolbarSpacer />
 				<m:Button text="{i18n>editValuesButton}" />
-				<m:Button icon="sap-icon://edit" text="{i18n>editModeButton}"/>
+				<m:Button icon="sap-icon://edit" text="{i18n>editModeButton}" press="onToggleEdit" visible="{= !${state>/editable} }"/>
+                <m:Button text="{i18n>saveButton}" type="Success" visible="{state>/editable}" press="onSave"/>
+				<m:Button text="{i18n>cancelButton}" type="Attention" visible="{state>/editable}" press="onCancel"/>
             </m:OverflowToolbar>
         </extension>
         <Column >
             <m:Label text="{i18n>nameLabel}"/>
             <template>
-                <m:Text text="{Name}" wrapping="false"></m:Text>
+                <m:HBox>
+                    <m:Input value="{Name}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Name}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
             </template>
         </Column>
         <Column >
             <m:Label text="{i18n>familyLabel}"/>
             <template>
-                <m:Text text="{Family}" wrapping="false"></m:Text>
+                <m:HBox>
+                    <m:Input value="{Family}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Family}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
             </template>
         </Column>
         <Column >
             <m:Label text="{i18n>locationLabel}"/>
             <template>
-                <m:Text text="{Location}" wrapping="false"></m:Text>
+                <m:HBox>
+                    <m:Input value="{Location}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Location}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
             </template>
         </Column>
-        <Column >
+        <Column width="140px">
             <m:Label text="{i18n>dateLabel}"/>
             <template>
-                <m:Text text="{Date}" wrapping="false"></m:Text>
+                <m:HBox>
+                    <m:DatePicker value="{Date}"
+                                  displayFormat="yyyy-MM-dd"
+                                  valueFormat="yyyy-MM-dd"
+                                  editable="true"
+                                  visible="{state>/editable}"/>
+                    <m:Text text="{Date}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
             </template>
         </Column>
         <Column >
             <m:Label text="{i18n>wingspanLabel}"/>
             <template>
-                <m:Text text="{Wingspan}" wrapping="false"></m:Text>
+                <m:HBox>
+                    <m:Input value="{Wingspan}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Wingspan}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
             </template>
         </Column>
         <Column >
             <m:Label text="{i18n>weightLabel}"/>
             <template>
-                <m:Text text="{Weight}" wrapping="false"></m:Text>
+                <m:HBox>
+                    <m:Input value="{Weight}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Weight}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
             </template>
         </Column>
         <Column >
             <m:Label text="{i18n>priceLabel}"/>
             <template>
-                <m:Text text="{Price}" wrapping="false"></m:Text>
+                <m:HBox>
+                    <m:Input value="{Price}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Price}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
             </template>
         </Column>
         <Column >
             <m:Label text="{i18n>abundanceLabel}"/>
             <template>
-                <m:Text text="{Abundance}" wrapping="false"></m:Text>
+                <m:HBox>
+                    <m:Input value="{Abundance}" editable="true" visible="{state>/editable}" type="Number"/>
+                    <m:Text text="{Abundance}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
             </template>
         </Column>
         <Column >
             <m:Label text="{i18n>colorRatingLabel}"/>
             <template>
-                <m:Text text="{Color Rating}" wrapping="false"></m:Text>
+                <m:HBox>
+                    <m:Input value="{Color Rating}" editable="true" visible="{state>/editable}" type="Number"/>
+                    <m:Text text="{Color Rating}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
             </template>
         </Column>
         <Column >
             <m:Label text="{i18n>habitatLabel}"/>
             <template>
-                <m:Text text="{Habitat}" wrapping="false"></m:Text>
+                <m:HBox>
+                    <m:Input value="{Habitat}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Habitat}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
             </template>
         </Column>
         <Column >
             <m:Label text="{i18n>lifespanLabel}"/>
             <template>
-                <m:Text text="{Lifespan}" wrapping="false"></m:Text>
+                <m:HBox>
+                    <m:Input value="{Lifespan}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Lifespan}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
             </template>
         </Column>
         <Column >
             <m:Label text="{i18n>migrationLabel}"/>
             <template>
-                <m:Text text="{Migration Pattern}" wrapping="false"></m:Text>
+                <m:HBox>
+                    <m:Input value="{Migration Pattern}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Migration Pattern}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
             </template>
         </Column>
         <Column >
             <m:Label text="{i18n>threatLabel}"/>
             <template>
-                <m:Text text="{Threat Level}" wrapping="false"></m:Text>
+                <m:HBox>
+                    <m:Input value="{Threat Level}" editable="true" visible="{state>/editable}" type="Text"/>
+                    <m:Text text="{Threat Level}" visible="{= !${state>/editable} }" wrapping="false"/>
+                </m:HBox>
             </template>
         </Column>
     </Table>
